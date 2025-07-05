@@ -1,4 +1,4 @@
-﻿import sys; sys.dont_write_bytecode = True
+﻿import sys
 
 import argparse
 import os
@@ -6,7 +6,7 @@ import zipfile
 
 from routines.history_types import BuildID
 from routines.consts import *
-from routines.configs import *
+from routines.configs import config
 from routines.cmd_help import print_help
 from routines.files import get_path, get_hexfile, get_zip_file
 from routines.db import establish_connection, disconnect
@@ -22,12 +22,17 @@ from routines.cmd_flash import flash_build
 from routines.cmd_export import export_build, export_build_hex, export_build_zip
 from routines.get_data import get_last_build
 
+sys.dont_write_bytecode = True
+
 # Докстринги
 
 if __name__ == '__main__':
     finished = False
-    parser = argparse.ArgumentParser(prog='History', add_help=False, exit_on_error=False)
-    parser.add_argument('cmd', choices=[CREATE, ADD, DELETE, UPDATE, LIST, INFO, REBASE, FLASH, EXPORT, GET, HELP, QUIT])
+    parser = argparse.ArgumentParser(
+        prog='History', add_help=False, exit_on_error=False)
+    parser.add_argument('cmd', choices=[
+        CREATE, ADD, DELETE, UPDATE, LIST, INFO, REBASE, FLASH, EXPORT, GET,
+        HELP, QUIT])
 
     # Для команд add, delete, update, info, list
     parser.add_argument(BRANCH, type=int)
